@@ -1,6 +1,7 @@
 import React from 'react'
 import SearchBar from './SearchBar'
 import unsplash from '../api/unsplash'
+import ImageList from '../components/ImageList'
 
 class App extends React.Component {
 
@@ -10,7 +11,7 @@ class App extends React.Component {
     const response = await unsplash.get('/search/photos', {
       params: { query: term },
     })
-    
+
     this.setState({ images: response.data.results })
   }
 
@@ -18,9 +19,10 @@ class App extends React.Component {
     return (
       <div className="ui contaier" style={{marginTop: '10px'}}>
         <SearchBar onSubmit={this.onSearchSubmit} />
-        Found: { this.state.images.length } images
-      </div>)
-    }
+        <ImageList images={this.state.images} />
+      </div>
+    )
+  }
 }
 
 export default App
